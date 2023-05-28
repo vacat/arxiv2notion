@@ -52,6 +52,11 @@ export default class Notion {
     const abst = data.abst;
     const paperUrl = data.url;
     const authorsFormatted = data.authors.join(",");
+    const updated = data.updated;
+    const published = data.published;
+    const primaryCategory = data.primaryCategory;
+    const categories = data.categories;
+    const pdfUrl = data.pdfUrl;
 
     try {
       const url = this.apiBase + "pages";
@@ -59,43 +64,41 @@ export default class Notion {
         type: "database_id",
         database_id: databaseId,
       };
+
       const properties = {
-        Title: {
-          id: "title",
-          type: "title",
-          title: [{ text: { content: title } }],
+        Title: { 
+          id: "title", 
+          type: "title", 
+          title: [
+            { 
+              text: { content: title } 
+            }
+          ],
         },
-        Publisher: {
-          id: "conference",
-          type: "select",
-          select: { name: "arXiv" },
+        Publisher: { 
+          id: "conference", 
+          type: "select", 
+          select: { name: "arXiv" }, 
         },
-        URL: {
-          id: "url",
-          type: "url",
-          url: paperUrl,
+        URL: { 
+          id: "url", 
+          type: "url", 
+          url: paperUrl, 
         },
-        Abstract: {
+        Abstract: { 
           id: "abstract",
-          type: "rich_text",
+          type: "rich_text", 
           rich_text: [
             {
-              type: "text",
+              type: "text", 
               text: { content: abst, link: null },
-              annotations: {
-                bold: false,
-                italic: true,
-                strikethrough: false,
-                underline: false,
-                code: false,
-                color: "default",
-              },
+              annotations: { bold: false, italic: true, strikethrough: false, underline: false, code: false, color: "default", },
               plain_text: abst,
               href: null,
             },
           ],
         },
-        Authors: {
+        Authors: { 
           id: "authors",
           type: "rich_text",
           rich_text: [
@@ -115,7 +118,26 @@ export default class Notion {
             },
           ],
         },
+        "Updated Date": {
+          id: "updated", type: "date", date: { start: updated },
+        },
+        "Published Date": {
+          id: "published", type: "date", date: { start: published },
+        },
+        "Primary Category": {
+          id: "primary", type: "select", select: { name: primaryCategory },
+        },
+        "Categories": {
+          id: "categories", type: "multi_select", multi_select: categories.map((x) => {
+            return { name: x };
+          }),
+        },
+        "PDFLink": {
+          id: "pdflink", type: "url", url: pdfUrl,
+        }
       };
+
+      console.log({"properties:": properties});
 
       const body = {
         parent: parent,

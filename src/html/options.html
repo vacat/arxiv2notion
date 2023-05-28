@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
-  <head></head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
   <body>
     <div class="uk-container">
       <div class="uk-margin uk-margin-bottom" uk-margin>
@@ -9,12 +12,14 @@
           class="uk-form-label"
           target="_blank"
           href="https://www.notion.so/my-integrations/"
+          rel="noopener nofollow"
           >https://www.notion.so/my-integrations/</a
         >
         <div class="uk-inline">
           <button id="js-visible-btn"
             class="uk-form-icon uk-form-icon-flip"
             uk-icon="lock"
+            title="integration-id"
           ></button>
           <input
             id="js-token-input"
@@ -23,7 +28,7 @@
             placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
           />
         </div>
-        <button id="js-save-btn" class="uk-icon-button uk-margin-small-left" uk-icon="plus" />
+        <button id="js-save-btn" class="uk-icon-button uk-margin-small-left" uk-icon="plus" title="save"/>
       </div>
       <div id="js-message-container"></div>
     </div>

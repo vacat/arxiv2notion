@@ -123,8 +123,32 @@ class UI {
       }
     );
 
+    const published = entry.querySelector("published").textContent;
+    const updated = entry.querySelector("updated").textContent;
+
+    const primaryCategory = entry.getElementsByTagName("arxiv:primary_category")[0].getAttribute("term")
+    const categories = Array.from(entry.getElementsByTagName("category")).map(category => category.getAttribute("term"));
+
+    const pdfUrl = Array.from(entry.getElementsByTagName("link")).find(link => link.getAttribute("title") === "pdf").getAttribute("href");
+
+    const paperInfo = {
+      id: paperId,
+      title: paperTitle,
+      abst: abst,
+      authors: authors,
+      url: url,
+      pdfUrl: pdfUrl,
+      primaryCategory: primaryCategory,
+      categories: categories,
+      updated: updated,
+      published: published,
+    };
+
+    console.log(paperInfo)
+
     this.setFormContents(paperTitle, abst, authors);
-    return { title: paperTitle, abst: abst, authors: authors, url: url };
+    //return { title: paperTitle, abst: abst, authors: authors, url: url };
+    return paperInfo;
   }
 
   renderMessage(type, message, overwrite = false) {

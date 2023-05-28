@@ -41,6 +41,7 @@ class TokenManager {
     });
   }
   toIid(botId) {
+    if(!botId) return;
     return botId.replaceAll("-", "");
   }
   toBotId(iid) {
